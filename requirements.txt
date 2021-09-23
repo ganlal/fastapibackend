@@ -23,3 +23,9 @@ requests
 
 #test coverage
 pytest-cov
+
+# JWT tokena]s
+python-jose
+
+# for form data
+python-multipart
