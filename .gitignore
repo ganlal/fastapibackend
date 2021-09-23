@@ -1,0 +1,17 @@
+__pycache__
+.env
+env
+sql_app.db
+core/__pycache__/
+db/__pycache__/
+schemas/__pycache__/
+test_db.db
+apis/__pycache__/
+apis/version1/__pycache__/
+db/repository/__pycache__/
+.coverage
+htmlcov/
+tests/__pycache__/
+tests/db/__pycache__/
+tests/test_routes/__pycache__/
+tests/utils/__pycache__/
