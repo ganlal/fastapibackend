@@ -1,0 +1,25 @@
+
+fastapi
+uvicorn
+
+
+# need to add the following packages to manage database operations to requirements.txt
+# for databses
+sqlalchemy
+psycopg2
+
+#for environemnt-var
+python-dotenv
+
+# for emil validating 
+pydantic[email]
+
+#hashing
+passlib[bcrypt]
+
+# for testing 
+pytest
+requests
+
+#test coverage
+pytest-cov
