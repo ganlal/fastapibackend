@@ -33,3 +33,5 @@ python-multipart
 # for HTML Template
 jinja2
 
+# for static files 
+aiofiles
