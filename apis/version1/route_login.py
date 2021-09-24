@@ -20,7 +20,7 @@ router = APIRouter()
 
 def authenticate_user(username:str,password:str,db:Session):
     user = get_user(username=username,db=db)
-    print(user)
+    # print(user)
     if not user:
         return False
     if not Hasher.verify_password(password,user.hashed_password):
@@ -44,6 +44,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login/token")
 def get_current_user_from_token(token:str = Depends(oauth2_scheme),db:Session=Depends(get_db)):
     credential_exception = HTTPException(status_code=HTTP_401_UNAUTHORIZED,
             detail="Could not validate credentials")
+    # print("get_current_user_from_token")        
     try:
         payload = jwt.decode(token,settings.SECRET_KEY,algorithms=[settings.ALGORITHM])
         username:str = payload.get("sub")
