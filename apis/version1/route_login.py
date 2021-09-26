@@ -49,7 +49,7 @@ def get_current_user_from_token(token:str = Depends(oauth2_scheme),db:Session=De
     try:
         payload = jwt.decode(token,settings.SECRET_KEY,algorithms=[settings.ALGORITHM])
         username:str = payload.get("sub")
-        print(f"email is: {username}")
+        # print(f"email is: {username}")
         if username is None:
             raise credential_exception
     except JWTError:
@@ -58,6 +58,5 @@ def get_current_user_from_token(token:str = Depends(oauth2_scheme),db:Session=De
     if user is None:
         raise credential_exception
     return user
-
 
 
