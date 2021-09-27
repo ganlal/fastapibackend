@@ -7,11 +7,11 @@ from db.session import get_db
 from db.models.jobs import Job
 from db.models.users import User
 from schemas.jobs import JobCreate, ShowJob
-from db.repository.jobs import create_new_job, retrieve_job, list_jobs,update_job_by_id,delete_job_by_id
+from db.repository.jobs import create_new_job, retrieve_job, list_jobs,update_job_by_id,delete_job_by_id,search_job
 
 from apis.version1.route_login import  get_current_user_from_token
 
-from typing import List
+from typing import List,Optional
 
 
 router = APIRouter()
@@ -37,6 +37,14 @@ def retrieve_job_by_id(id:int,db:Session = Depends(get_db)):
 def retrieve_all_jobs(db:Session = Depends(get_db)):
     jobs = list_jobs(db=db)
     return jobs
+
+@router.get("/autocomplete")
+def autocomplete(term: Optional[str] = None, db: Session = Depends(get_db)):
+    jobs = search_job(term, db=db)
+    job_titles = []
+    for job in jobs:
+        job_titles.append(job.title)
+    return job_titles
 
 # @router.put("/update/{id}")
 # def update_job(id:int,job:JobCreate,db:Session=Depends(get_db)):

@@ -4,12 +4,14 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import  Jinja2Templates
 from fastapi.security.utils import get_authorization_scheme_param
 
+from typing import Optional
+
 from sqlalchemy.orm import Session
 
 from db.repository.jobs import list_jobs, retrieve_job
 from db.session import get_db
 from db.models.users import User
-from db.repository.jobs import create_new_job  
+from db.repository.jobs import create_new_job, search_job  
 
 from schemas.jobs import JobCreate
 from apis.version1.route_login import get_current_user_from_token
@@ -22,6 +24,11 @@ router = APIRouter(include_in_schema=False)
 def home(request:Request,db:Session=Depends(get_db),msg:str = None):
     jobs = list_jobs(db=db)
     return templates.TemplateResponse("jobs/homepage.html",{"request":request,"jobs":jobs,"msg":msg})
+
+@router.get("/search/")
+def search(request:Request,db:Session=Depends(get_db),query:Optional[str] = None):
+    jobs = search_job(query,db=db)
+    return templates.TemplateResponse("jobs/homepage.html",{"request":request,"jobs":jobs})
 
 @router.get("/detail/{id}")
 def job_detail(id:int,request:Request,db:Session=Depends(get_db)):
